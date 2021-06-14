@@ -1,0 +1,39 @@
+{
+    "name": "node-dev-tools",
+    "version": "1.0.0",
+    "description": "Proyecto del grupo de estudio DevTools Study Group del servidor de Frontend Cafe",
+    "main": "dist/src/index.js",
+    "scripts": {
+        "prebuild": "npm run clearDistDirectory",
+        "build": "tsc",
+        "prestart": "npm run build",
+        "start": "node .",
+        "dev": "nodemon",
+        "clearDistDirectory": "rimraf dist",
+        "migrate": "npx typeorm migration:run"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
+        "@types/cors": "^2.8.10",
+        "@types/express": "^4.17.12",
+        "@types/morgan": "^1.9.2",
+        "@types/node": "^15.12.2"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "helmet": "^4.6.0",
+        "morgan": "^1.10.0",
+        "mysql2": "^2.2.5",
+        "nodemon": "^2.0.7",
+        "reflect-metadata": "^0.1.13",
+        "rimraf": "^3.0.2",
+        "ts-node": "^10.0.0",
+        "typeorm": "^0.2.34",
+        "typescript": "^4.3.2"
+    }
+}
