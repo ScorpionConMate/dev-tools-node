@@ -1,10 +1,12 @@
 import { Request, Response, Router } from "express";
+import { UsersController } from "../controllers/Users.controller"
 import { AuthController } from "../controllers/Auth.controller";
 import { ValidateFields } from '../middlewares/ValidateFields.middleware';
 import { validateJwt } from '../middlewares/ValidateJwt.middleware';
 import { LoginSchema, RegisterSchema } from '../validators/ValidationSchemas';
 
 const router = Router();
+
 //Login route
 router.post("/login", [...LoginSchema, ValidateFields], async (req: Request, res: Response) => {
     try {
