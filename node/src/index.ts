@@ -26,11 +26,11 @@ createConnection().then(async connection => {
     app.use(cors());
 
 
-    // Register all application routes
+    // Register all application routes into express app
     app.use("/api/", routes);
 
     app.listen(process.env.APP_PORT, () => {
         console.log(`⚡️[server]: Server is running at ${process.env.APP_URL}`);
     });
-    
+
 }).catch(err => console.log(err));
