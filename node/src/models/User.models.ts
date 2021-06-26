@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity, DeleteDateColumn, ManyToMany, OneToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity, DeleteDateColumn } from "typeorm";
 import { compareSync, genSaltSync, hashSync } from "bcryptjs";
-import { Meet } from "./Meet.models";
 
 enum Roles {
     ADMIN = 'admin',
@@ -8,20 +7,7 @@ enum Roles {
 }
 
 @Entity('user')
-export class User extends BaseEntity {
-
-    // CAMPOS:
-    // id
-    // email
-    // user name
-    // password
-    // name
-    // last name
-    // role
-    // meetsOwned
-    // meets
-    // createdAt
-    // deletedAt (soft delete)
+export class UserModel extends BaseEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: number;
@@ -29,12 +15,12 @@ export class User extends BaseEntity {
     @Column({ type: 'varchar', unique: true })
     email: string;
 
-    @Column({ type: 'varchar', unique: true})
+    @Column({ type: 'varchar', unique: true })
     userName: string;
-    
+
     @Column({ type: 'varchar', length: 255 })
     password: string;
-    
+
     @Column({ type: 'varchar' })
     name: string;
 
@@ -43,13 +29,6 @@ export class User extends BaseEntity {
 
     @Column({ type: 'varchar', default: Roles.USER })
     role: string;
-
-    @OneToMany(type => Meet, meet => meet.id) 
-    meetsOwned: Meet[];
-
-    @ManyToMany(type => Meet, meet => meet.id)
-    @JoinTable()
-    meets: Meet[];
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     createdAt: Date;

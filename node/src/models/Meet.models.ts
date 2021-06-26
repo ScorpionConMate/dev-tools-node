@@ -1,31 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity, DeleteDateColumn, OneToOne, ManyToOne, JoinColumn, ColumnTypeUndefinedError, ManyToMany, JoinTable, Timestamp } from "typeorm";
-import { User } from "./User.models";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity, ManyToOne, ManyToMany } from "typeorm";
+import { UserModel } from "./User.models";
 
 @Entity('meet')
-export class Meet {
+export class MeetModel extends BaseEntity {
 
-    // CAMPOS:
-    // id
-    // owner
-    // assistants
-    // time
-    // isAvailable
-    // createdAt
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ManyToOne(type => UserModel, user => user.id)
+    owner: UserModel;
 
-    @ManyToOne(type => User, user => user.id)
-    owner: User;
+    @Column({ type: 'date' })
+    appoinmentDate: Date;
 
-    @ManyToMany( type => User, user => user.id)
-    assistants: User[];
-
-    @Column()
-    time: Timestamp;
-
-    @Column()
-    isAvailable: Boolean;
+    @Column({ type: "bool", default: true })
+    isAvailable: boolean;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     createdAt: Date;
@@ -34,8 +23,7 @@ export class Meet {
         return {
             id: this.id,
             owner: this.owner,
-            time: this.time
+            appoinmentDate: this.appoinmentDate
         }
     }
-
 }

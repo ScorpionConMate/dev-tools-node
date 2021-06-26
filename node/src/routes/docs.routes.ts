@@ -1,10 +1,9 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 
 const routes = Router()
 
-routes
-    .get( () => {
-        console.log("La idea es devolver abrir una pesta;a con la documentacion completa de la API")
-    })
+routes.get("", (req: Request, res: Response) => {
+    res.json({ version: "Meetup doc v1" })
+});
 
 export default routes;
