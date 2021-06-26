@@ -1,12 +1,17 @@
 import { Router, Request, Response } from 'express';
-import auth from './auth.routes';
-
+import docs from './docs.routes';
+import meet from "./meet.routes";
 const routes = Router();
 
-routes.get('', (request: Request, response: Response) => {
-    response.json({ info: 'Proyecto Dev Tools Node v1' })
-});
+// INFO Routes
+routes.get('/info', (req: Request, res: Response) => {
+    res.json({ info: "Proyecto realizado por la faccion de NodeJS para el grupo de Dev-Tools-Node" })
+})
 
-routes.use("/auth", auth);
+// DOCUMENTATION Routes
+routes.use('/docs', docs);
+
+// Meet Routes
+routes.use("/meet", meet);
 
 export default routes;

@@ -7,7 +7,7 @@ enum Roles {
 }
 
 @Entity('user')
-export class User extends BaseEntity {
+export class UserModel extends BaseEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: number;
@@ -15,17 +15,20 @@ export class User extends BaseEntity {
     @Column({ type: 'varchar', unique: true })
     email: string;
 
-    @Column({ type: 'varchar' })
-    nombre: string;
-
-    @Column({ type: 'varchar' })
-    apellido: string;
-
-    @Column({ type: 'varchar', default: Roles.USER })
-    role: string;
+    @Column({ type: 'varchar', unique: true })
+    userName: string;
 
     @Column({ type: 'varchar', length: 255 })
     password: string;
+
+    @Column({ type: 'varchar' })
+    name: string;
+
+    @Column({ type: 'varchar' })
+    lastName: string;
+
+    @Column({ type: 'varchar', default: Roles.USER })
+    role: string;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     createdAt: Date;
@@ -43,15 +46,15 @@ export class User extends BaseEntity {
     }
 
     get fullName() {
-        return `${this.apellido}, ${this.nombre}`;
+        return `${this.lastName}, ${this.name}`;
     }
 
     get userInfo() {
         return {
             id: this.id,
             email: this.email,
-            nombre: this.nombre,
-            apellido: this.apellido,
+            nombre: this.name,
+            apellido: this.lastName,
             role: this.role
         }
     }
@@ -63,8 +66,8 @@ export class User extends BaseEntity {
     get userMeetup() {
         return {
             email: this.email,
-            nombre: this.nombre,
-            apellido: this.apellido,
+            nombre: this.name,
+            apellido: this.lastName,
         }
     }
 

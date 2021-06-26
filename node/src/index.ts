@@ -4,7 +4,8 @@ import express from "express";
 import cors from "cors";
 import routes from './routes/routes';
 import morgan from "morgan";
-import helmet from "helmet"
+import helmet from "helmet";
+
 // Try establish database connection
 createConnection().then(async connection => {
 
@@ -13,7 +14,7 @@ createConnection().then(async connection => {
 
     // Init express app
     const app = express();
-    app.use(helmet())
+    app.use(helmet());
     app.use(express.json());
     app.use(morgan("tiny"));
 
@@ -31,4 +32,5 @@ createConnection().then(async connection => {
     app.listen(process.env.APP_PORT, () => {
         console.log(`⚡️[server]: Server is running at ${process.env.APP_URL}`);
     });
+    
 }).catch(err => console.log(err));

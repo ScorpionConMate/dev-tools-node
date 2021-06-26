@@ -10,7 +10,8 @@
         "start": "node .",
         "dev": "nodemon",
         "clearDistDirectory": "rimraf dist",
-        "migrate": "npx typeorm migration:run"
+        "migrate": "npx typeorm migration:run",
+        "syncDb": "npx typeorm schema:sync"
     },
     "author": "",
     "license": "ISC",
