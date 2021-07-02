@@ -8,4 +8,4 @@ export const config = {
         DB_PASSWORD: process.env.DB_PASSWORD,
         DB_DATABASE: process.env.DB_DATABASE,
     },
-}
+};

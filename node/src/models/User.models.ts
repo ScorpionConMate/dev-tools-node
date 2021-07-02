@@ -1,16 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity, DeleteDateColumn } from "typeorm";
-import { compareSync, genSaltSync, hashSync } from "bcryptjs";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity, DeleteDateColumn } from 'typeorm';
+import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
+import { UserInfoInterface } from '../interfaces/UserInfo.interface';
 
-enum Roles {
+export enum Roles {
     ADMIN = 'admin',
-    USER = 'user'
+    USER = 'user',
 }
 
 @Entity('user')
 export class UserModel extends BaseEntity {
-
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column({ type: 'varchar', unique: true })
     email: string;
@@ -28,47 +28,41 @@ export class UserModel extends BaseEntity {
     lastName: string;
 
     @Column({ type: 'varchar', default: Roles.USER })
-    role: string;
+    role: Roles;
 
-    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
+    @CreateDateColumn({
+        type: 'timestamp',
+        default: () => 'CURRENT_TIMESTAMP(6)',
+    })
     createdAt: Date;
 
     @DeleteDateColumn({ select: false })
     deletedAt?: Date;
 
-    hashPassword() {
+    hashPassword(): void {
         const salt = genSaltSync();
         this.password = hashSync(this.password, salt);
     }
 
-    validatePassword(password) {
-        return compareSync(password, this.password)
+    validatePassword(password: string): boolean {
+        return compareSync(password, this.password);
     }
 
-    get fullName() {
+    get fullName(): string {
         return `${this.lastName}, ${this.name}`;
     }
 
-    get userInfo() {
+    get userInfo(): UserInfoInterface {
         return {
             id: this.id,
             email: this.email,
-            nombre: this.name,
-            apellido: this.lastName,
-            role: this.role
-        }
+            name: this.name,
+            lastName: this.lastName,
+            role: this.role,
+        };
     }
 
-    get isAdmin() {
+    get isAdmin(): boolean {
         return this.role == Roles.ADMIN;
     }
-
-    get userMeetup() {
-        return {
-            email: this.email,
-            nombre: this.name,
-            apellido: this.lastName,
-        }
-    }
-
 }
