@@ -3,7 +3,7 @@ import { MeetController } from '../controllers/Meet.controller';
 
 const route = Router();
 
-route.get("/:id", MeetController.findOne);
-route.get("", MeetController.find);
+route.get('/:id', MeetController.findOne);
+route.get('', MeetController.find);
 
-export default route
+export default route;
